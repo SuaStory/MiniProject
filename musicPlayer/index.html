@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music-Player</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+                <img src="images/music.png" class="song-img">
+                <h1>Song name</h1>
+                <p>Artist name</p>
+                <span id="current">00:00</span> / <span id="duration">00:00</span>
+
+                <audio id="song">
+                    <source src="images/eona-emotional-ambient-pop-351436.mp3" type="audio/mpeg">
+                </audio>
+                <input type="range" value="0" id="progress">
+
+                <div class="controls">
+                    <div><i class="fa-solid fa-backward"></i></div>
+                    <div onclick="playPause()"><i class="fa-solid fa-play" id="ctrlIcon"></i></div>
+                    <div><i class="fa-solid fa-forward"></i></div>
+                </div>
+        </div>
+    </div>
+    <script>
+        let progress = document.getElementById("progress");
+        let song = document.getElementById("song");
+        let ctrlIcon = document.getElementById("ctrlIcon");
+
+        // song.onloadedmetadata = function (){
+        //     progress.max = song.duration;
+        //     progress.value = song.currentTime;    
+        // }
+        
+        // song.addEventListener('loadedmetadata',function(){
+        //     progress.max = song.duration;
+        //     progress.value = song.currentTime;    
+        // })
+
+        function playPause(){
+            if (ctrlIcon.classList.contains('fa-pause')) {
+                song.pause();
+                ctrlIcon.classList.remove('fa-pause');
+                ctrlIcon.classList.add('fa-play');
+            }else{
+                song.play();
+                ctrlIcon.classList.add('fa-pause');
+                ctrlIcon.classList.remove('fa-play');
+            }
+        }
+
+        // if (song.play()) {
+        //     setInterval(function () {
+        //         progress.value = song.currentTime
+        //     },500);
+        // }
+
+        //     song.ontimeupdate = () => {
+        //     progress.value = song.currentTime;
+        //     };
+            
+        // progress.onchange = function () {
+        //     song.play();
+        //     song.currentTime = progress.value;
+        //     ctrlIcon.classList.add('fa-pause');
+        //     ctrlIcon.classList.remove('fa-play');
+        // }
+// 메타데이터 로딩 시 슬라이더 초기화
+song.addEventListener("loadedmetadata", () => {
+    progress.max = song.duration;
+});
+
+// 재생 중일 때 슬라이더가 따라가게 하기
+song.addEventListener("timeupdate", () => {
+    progress.value = song.currentTime;
+});
+
+// 사용자가 슬라이더 조작할 때 재생 위치 이동
+progress.addEventListener("input", () => {
+    song.currentTime = progress.value;
+});
+
+function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+// 총 길이 설정 (메타데이터 로드 시)
+song.addEventListener("loadedmetadata", () => {
+    duration.textContent = formatTime(song.duration);
+});
+
+// 재생 중 현재 시간 업데이트
+song.addEventListener("timeupdate", () => {
+    current.textContent = formatTime(song.currentTime);
+});
+    </script>
+</body>
+</html>

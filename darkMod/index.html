@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="light-mode.css" id="css-link">
+</head>
+<body>
+    <div>
+        <p>이 사이트는 다크모드가 지원됩니다.</p>   
+        <p>아래 버튼을 누르면, 모드가 변경됩니다.</p>
+        <a href="1.html">page2</a>   
+    </div>
+    <button onclick="changeMode()">모드변경</button>
+
+    <script>
+        var css = document.querySelector("#css-link");
+        var darkModeYn = localStorage["dark"];
+        loadMode();
+        
+        function loadMode(){
+            if (darkModeYn == "Y"){
+                css.setAttribute('href', "dark-mode.css")
+            } else {
+                css.setAttribute('href', "light-mode.css")
+            }
+        }
+
+        function changeMode(){
+            if (darkModeYn == "N"){
+                localStorage["dark"] = 'Y' 
+            } else {
+                localStorage["dark"] = 'N'
+            }
+
+            location.reload(); 
+            // 웹페이지 새로고침
+        }
+        
+    </script>
+</body>
+</html>

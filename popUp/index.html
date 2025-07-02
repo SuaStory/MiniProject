@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pop-up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <button type="submit" class="btn" onclick="openPopup()">Submit</button>
+        <div class="popup" id="popup">
+            <img src="./404-tick.png">
+            <h2>Thank You!</h2>
+            <p>Your details has been successfully submitted. Thanks!</p>
+            <button type="button" id="ok">OK</button>
+        </div>
+    </div>
+
+    <script>
+        let popup = document.getElementById("popup"); //클래스 넣고빼기 하기 위해 변수에 넣기
+        let ok = document.getElementById("ok"); //addEventListener 사용하기위해 변수에 넣기
+        
+        function openPopup() {
+            popup.classList.remove("closing"); // 혹시 남아 있을 때 대비
+            popup.classList.add("open-popup");
+        }
+
+        ok.addEventListener('click',function () {
+            //닫기 애니메이션 시작
+            popup.classList.add("closing");
+            popup.classList.remove("open-popup"); 
+            
+            // 애니메이션 시간(400ms) 후에 완전히 숨김 처리
+            setTimeout(() => {
+                popup.classList.remove("closing");
+            }, 400);
+
+        }); 
+    </script>
+</body>
+</html>

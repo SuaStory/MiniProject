@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image-Gallery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="gallery-wrap">
+        <img src="images/back.png" id="backBtn">
+        <div class="gallery">
+        <div>
+            <span><img src="images/image-1.png"></span>
+            <span><img src="images/image-2.png"></span>
+            <span><img src="images/image-3.png"></span>
+        </div>
+        <div>
+            <span><img src="images/image-4.png"></span>
+            <span><img src="images/image-5.png"></span>
+            <span><img src="images/image-6.png"></span>
+        </div>
+    </div>
+        <img src="images/next.png" id="nextBtn">
+    </div>
+    <script>
+        let scrollContainer = document.querySelector(".gallery");
+        let backBtn = document.getElementById("backBtn");
+        let nextBtn = document.getElementById("nextBtn");
+        const scrollAmount = scrollContainer.clientWidth; //좌우 스크롤 계산
+
+        scrollContainer.addEventListener("wheel",(event)=>{
+            event.preventDefault();
+            scrollContainer.scrollLeft += event.deltaY; //휠 세로를 가로로 변환           
+        });
+
+        nextBtn.addEventListener("click",()=>{
+            scrollContainer.style.scrollBehavior = "smooth"; //css의 속성 추가
+            scrollContainer.scrollLeft += scrollAmount; //오른쪽 스크롤
+        });
+        backBtn.addEventListener("click",()=>{
+            scrollContainer.style.scrollBehavior = "smooth";
+            scrollContainer.scrollLeft -= scrollAmount; //왼쪽 스크롤
+        });
+    </script>
+</body>
+</html>
